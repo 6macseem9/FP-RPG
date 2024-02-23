@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponRecovery : WeaponState
 {
-    private bool _interrupted;
+
 
     public WeaponRecovery(WeaponController controller, Animator animator, StateMachine stateMachine) : base(controller, animator, stateMachine)
     {
@@ -17,15 +18,9 @@ public class WeaponRecovery : WeaponState
 
     public override void OnEnter()
     {
-        _interrupted = false;
         _animator.Play(_controller.AttackString + "r");
 
-        WaitForAnimFinish(() => { if (!_interrupted) CompleteState(); });
-    }
-
-    public override void OnExit()
-    {
-        _interrupted = true;
+        WaitForAnimFinish();
     }
 
     public override void Update()

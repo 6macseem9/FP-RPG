@@ -31,6 +31,5 @@ public class RecieveDmgTest : MonoBehaviour
     public void TakeDamage()
     {
         Wobble();
-        Debug.Log("yikes!");
     }
 }

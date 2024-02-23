@@ -7,6 +7,9 @@ public class WeaponState : State
     protected Animator _animator;
     protected StateMachine _stateMachine;
 
+    private Tweener _delay;
+    private Tweener _startup;
+
     public WeaponState(WeaponController controller, Animator animator, StateMachine stateMachine)
     {
         _controller = controller;
@@ -26,7 +29,8 @@ public class WeaponState : State
 
     public override void OnExit()
     {
-
+        if (_startup != null) _startup.Kill();
+        if (_delay!=null) _delay.Kill();
     }
 
     public override void Update()
@@ -34,14 +38,15 @@ public class WeaponState : State
 
     }
 
-    protected void WaitForAnimFinish(TweenCallback func = null)
+    protected void WaitForAnimFinish()
     {
-        if (func == null) func = () => CompleteState();
-
-        Util.Delay(0.05f, () => {
-            var animDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
-            Util.Delay(animDuration, func);
-        });
+        _startup = Util.Delay(0.05f, () => DelayComplete());
         
+    }
+
+    private void DelayComplete()
+    {
+        var animDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
+        _delay = Util.Delay(animDuration, () => CompleteState());
     }
 }

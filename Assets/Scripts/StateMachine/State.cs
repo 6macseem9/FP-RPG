@@ -14,11 +14,11 @@ public abstract class State
     }
     public void Enter()
     {
+        Completed = false;
         OnEnter();
     }
     public void Exit()
     {
-        Completed = false;
         OnExit();
     }
 }

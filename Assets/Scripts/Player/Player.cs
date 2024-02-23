@@ -117,10 +117,12 @@ public class Player : MonoBehaviour
 
 public static class Util
 {
-    public static void Delay(float time, TweenCallback func, bool realTime = false)
+    public static Tweener Delay(float time, TweenCallback func, bool realTime = false)
     {
         float timer = 0;
-        DOTween.To(() => timer, x => timer = x, time, time).SetUpdate(realTime).onComplete = func;
+        Tweener tween = DOTween.To(() => timer, x => timer = x, time, time).SetUpdate(realTime);
+        tween.onComplete = func;
+        return tween;
     }
 }
 

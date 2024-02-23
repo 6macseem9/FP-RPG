@@ -25,6 +25,7 @@ public class WeaponAttack : WeaponState
     }
     public override void OnExit()
     {
+        base.OnExit();
         _controller.Weapon.EnableCollider(false);
     }
 }

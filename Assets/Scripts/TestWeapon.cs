@@ -20,7 +20,7 @@ public class TestWeapon : MonoBehaviour
         enemy.TakeDamage();
 
         _hitParticles.transform.position = collision.contacts[0].point;
-        _hitParticles.transform.rotation = Quaternion.LookRotation(transform.position - enemy.transform.position);
+        _hitParticles.transform.rotation = Quaternion.LookRotation(transform.position - collision.transform.position);
         _hitParticles.Play();
     }
 
