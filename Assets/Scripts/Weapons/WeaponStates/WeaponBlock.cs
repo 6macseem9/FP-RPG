@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponBlock : WeaponState
 {
+    private bool _leftIdle;
+
     public WeaponBlock(WeaponController controller, Animator animator, StateMachine stateMachine) : base(controller, animator, stateMachine)
     {
     }
@@ -15,7 +17,11 @@ public class WeaponBlock : WeaponState
 
     public override void OnEnter()
     {
+        _leftIdle = false;
+        Util.Delay(0.1f, () => _leftIdle = true);
+
         _animator.Play("block");
+        
     }
 
     public override void OnExit()
@@ -27,7 +33,7 @@ public class WeaponBlock : WeaponState
 
     public override void Update()
     {
-        if (_animator.GetFloat("Speed")==0 || _animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
+        if (_animator.GetFloat("Speed")==0 || (_leftIdle && _animator.GetCurrentAnimatorStateInfo(0).IsName("idle")))
         {
             CompleteState();
         }

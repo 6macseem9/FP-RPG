@@ -10,8 +10,9 @@ public class WeaponIdle : WeaponState
 
     public override void OnEnter()
     {
+        Debug.Log("ENTERED IDLE");
         _controller.ResetAttackNumber();
+
         if(_stateMachine.PreviousStateName!=nameof(WeaponBlock))_animator.Play("idle");
     }
-
 }

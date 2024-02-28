@@ -10,14 +10,16 @@ public class WeaponController : MonoBehaviour
     private WeaponAnimator _weaponAnimator;
     private StateMachine _stateMachine;
     [field: SerializeField] public Weapon Weapon { get; private set; }
-    
 
+    [HideInInspector] public bool AllowUpdate = true;
     [HideInInspector] public float ÑhargeModifier;
     [HideInInspector] public int AttackButton = -1;
     [HideInInspector] public int BlockButton = -1;
     public int AttackNumber { get; private set; }
 
     public bool HasWeapon { get { return Weapon != null; } }
+    public bool InIdleState { get { return _stateMachine.CurrentStateName == nameof(WeaponIdle)
+                                        || _stateMachine.CurrentStateName == nameof(WeaponRecovery); } }
 
     private void Awake()
     {
@@ -66,7 +68,7 @@ public class WeaponController : MonoBehaviour
     
     void Update()
     {
-        _stateMachine.Update();
+        if (AllowUpdate) _stateMachine.Update();
 
         if(Weapon.Type==WeaponType.OffHand)UIDebug.Instance.Show("Weapon: ", _stateMachine.CurrentStateName.Replace("Weapon", ""), "yellow");
         //UIDebug.Instance.Show("Charge: ", ÑhargeModifier.ToString(), "purple");

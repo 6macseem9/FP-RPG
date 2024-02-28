@@ -51,6 +51,7 @@ public class HandsController : MonoBehaviour
 
     private void Update()
     {
-        
+        if(_rHand.HasWeapon) _rHand.AllowUpdate = _lHand.InIdleState;
+        if(_lHand.HasWeapon) _lHand.AllowUpdate = _rHand.InIdleState;
     }
 }
