@@ -11,20 +11,12 @@ public class WeaponRecovery : WeaponState
     {
     }
 
-    public override void FixedUpdate()
-    {
-
-    }
 
     public override void OnEnter()
     {
-        _animator.Play(_controller.AttackString + "r");
+        _animator.Play(_controller.AttackNumber + "recovery");
 
         WaitForAnimFinish();
     }
 
-    public override void Update()
-    {
-
-    }
 }

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _onSlopeDownForce = -0.5f;
     [SerializeField] private Transform _orientation;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private Camera _camera;
 
     private Rigidbody _rb;
     private CapsuleCollider _collider;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     private RaycastHit _slopeHit;
     private Vector3 _moveDirection;
 
+    private int _hp = 100;
 
     private void Start()
     {
@@ -70,10 +72,11 @@ public class Player : MonoBehaviour
 
         _stateMachine.Update();
 
+        UIDebug.Instance.Show("@ ", _hp.ToString(),"red","red");
         UIDebug.Instance.Show("State:", _stateMachine.CurrentStateName.Replace("Player",""),"yellow");
         UIDebug.Instance.Show("Velocity:", $"{_rb.velocity} = {_rb.velocity.magnitude}", "orange");
         UIDebug.Instance.Show("Y:", YVelocity.ToString(), "red");
-        UIDebug.Instance.Show("On Slope:", OnSlope().ToString(), "red");
+        //UIDebug.Instance.Show("On Slope:", OnSlope().ToString(), "red");
     }
 
     private void FixedUpdate()
@@ -112,6 +115,19 @@ public class Player : MonoBehaviour
 
         float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
         return angle < _maxSlopeAngle && angle != 0;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        _hp -= amount;
+        if(_hp<0) _hp = 0;
+
+        _camera.DOShakePosition(0.5f,0.3f,20);
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        TakeDamage(10);
     }
 }
 

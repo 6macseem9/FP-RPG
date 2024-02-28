@@ -24,4 +24,21 @@ public class WeaponAnimator : MonoBehaviour
     {
         OnDisable?.Invoke();
     }
+
+    public void Pause()
+    {
+        Animator.Pause();
+    }
+}
+
+public static class ExtensionAnimator
+{
+    public static void Pause(this Animator animator)
+    {
+        animator.SetFloat("Speed", 0);
+    }
+    public static void Unpause(this Animator animator)
+    {
+        animator.SetFloat("Speed", 1);
+    }
 }

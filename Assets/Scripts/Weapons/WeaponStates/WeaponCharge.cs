@@ -11,15 +11,10 @@ public class WeaponCharge : WeaponState
     {
     }
 
-    public override void FixedUpdate()
-    {
-        
-    }
-
     public override void OnEnter()
     {
-        _animator.Play(_controller.AttackString + "c");
-        _controller.ÑhargeModifier = 0.1f;
+        _animator.Play(_controller.AttackNumber + "charge");
+        _controller.ÑhargeModifier = _controller.Weapon.StartCharge;
 
         Util.Delay(0.05f, () => {
             var animDuration = _animator.GetCurrentAnimatorStateInfo(0).length;
@@ -31,10 +26,5 @@ public class WeaponCharge : WeaponState
     public override void OnExit()
     {
         _tween.Kill();
-    }
-
-    public override void Update()
-    {
-
     }
 }

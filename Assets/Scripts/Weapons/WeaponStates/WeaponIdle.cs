@@ -8,24 +8,10 @@ public class WeaponIdle : WeaponState
     {
     }
 
-    public override void FixedUpdate()
-    {
-
-    }
-
     public override void OnEnter()
     {
         _controller.ResetAttackNumber();
-        _animator.Play(_controller.WeaponName);
+        if(_stateMachine.PreviousStateName!=nameof(WeaponBlock))_animator.Play("idle");
     }
 
-    public override void OnExit()
-    {
-
-    }
-
-    public override void Update()
-    {
-
-    }
 }

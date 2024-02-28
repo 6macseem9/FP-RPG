@@ -7,19 +7,9 @@ public class WeaponAttack : WeaponState
     {
     }
 
-    public override void FixedUpdate()
-    {
-
-    }
-
-    public override void Update()
-    {
-
-    }
-
     public override void OnEnter()
     {
-        _animator.Play(_controller.AttackString);
+        _animator.Play(_controller.AttackNumber+"attack");
 
         WaitForAnimFinish();
     }
